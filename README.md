@@ -1,4 +1,4 @@
-[![Build](https://github.com/VahidFarahmandian/jinget-azuredevops-connector/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/VahidFarahmandian/jinget-azuredevops-connector/actions/workflows/build.yml) [![Release NuGet Package](https://github.com/VahidFarahmandian/jinget-azuredevops-connector/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/VahidFarahmandian/jinget-azuredevops-connector/actions/workflows/release.yml) 
+[![build-ci](https://github.com/VahidFarahmandian/jinget-azuredevops-connector/actions/workflows/build.yml/badge.svg)](https://github.com/VahidFarahmandian/jinget-azuredevops-connector/actions/workflows/build.yml) [![release-ci](https://github.com/VahidFarahmandian/jinget-azuredevops-connector/actions/workflows/release.yml/badge.svg)](https://github.com/VahidFarahmandian/jinget-azuredevops-connector/actions/workflows/release.yml)
 
 # Jinget Azure DevOps Connector
 
