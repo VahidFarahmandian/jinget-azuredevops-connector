@@ -1,7 +1,7 @@
 name:  release-ci
 defaults:
   run: 
-    working-directory: ./Jinget.AzureDevOps.Connector/Jinget.AzureDevOps.Connector
+    working-directory: ./Jinget.AzureDevOps.Connector
 on:
   push:
     tags:
