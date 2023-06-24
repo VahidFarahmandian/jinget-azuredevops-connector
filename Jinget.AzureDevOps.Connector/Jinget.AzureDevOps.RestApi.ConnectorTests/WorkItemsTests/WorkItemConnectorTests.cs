@@ -13,31 +13,6 @@ namespace Jinget.AzureDevOps.RestApi.ConnectorTests.ProjectsTests
         [TestInitialize]
         public void TestInitialize() => connector = new WorkItemConnector(pat, organization, "PMOSample");
 
-        //[TestMethod()]
-        //public async Task should_create_new_project()
-        //{
-        //    NewProjectViewModel newProject = new()
-        //    {
-        //        name = "My Test Project",
-        //        capabilities = new NewProjectViewModel.Capabilities
-        //        {
-        //            versioncontrol = new NewProjectViewModel.Versioncontrol
-        //            {
-        //                sourceControlType = "Git"
-        //            },
-        //            processTemplate = new NewProjectViewModel.Processtemplate
-        //            {
-        //                templateTypeId = "b8a3a935-7e91-48b8-a94c-606d37c3e9f2"
-        //            }
-        //        },
-        //        description = "My new project description"
-        //    };
-        //    bool result = await connector.Create(newProject);
-
-        //    Assert.IsTrue(result);
-        //}
-
-
         [TestMethod()]
         public async Task should_get_list_of_workitems()
         {

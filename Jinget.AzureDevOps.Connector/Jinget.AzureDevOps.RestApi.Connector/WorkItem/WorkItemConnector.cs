@@ -1,8 +1,6 @@
 ﻿using Jinget.AzureDevOps.RestApi.Connector.Projects.ViewModels;
 using Jinget.AzureDevOps.RestApi.Connector.WorkItem.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Jinget.AzureDevOps.RestApi.Connector.Projects
@@ -41,24 +39,9 @@ namespace Jinget.AzureDevOps.RestApi.Connector.Projects
             return result;
         }
 
-        ///// <summary>
-        ///// Get the detail information about a specific project
-        ///// </summary>
-        //public async Task<ProjectViewModel> Get(string projectName, Dictionary<string, string>? urlParameters = null) => await GetAsync<ProjectViewModel>($"{RootPathSegment}/{projectName}", urlParameters);
-
-        ///// <summary>
-        ///// Get all the properties of a specific project
-        ///// </summary>
-        //public async Task<ProjectPropertiesViewModel> GetProperties(Guid projectId, Dictionary<string, string>? urlParameters = null) => await GetAsync<ProjectPropertiesViewModel>($"{RootPathSegment}/{projectId}/properties", urlParameters);
-
         /// <summary>
         /// Create a new workitem
         /// </summary>
         public async Task<NewWorkItemViewModel> Create(string type, List<NewWorkItemModel> workItemProperties, Dictionary<string, string>? urlParameters = null) => await PostAsync<List<NewWorkItemModel>, NewWorkItemViewModel>($"{RootPathSegment}/workitems/{type}", workItemProperties, urlParameters, contentType: "application/json-patch+json");
-
-        ///// <summary>
-        ///// Delete a project in organization/collection
-        ///// </summary>
-        //public async Task<bool> Delete(Guid projectId, Dictionary<string, string>? urlParameters = null) => await DeleteAsync($"{RootPathSegment}/{projectId}", urlParameters);
     }
 }
