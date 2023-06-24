@@ -1,5 +1,7 @@
 name:  build-ci
-
+defaults:
+  run: 
+    working-directory: ./Jinget.AzureDevOps.Connector/Jinget.AzureDevOps.Connector
 on:
   push:
     branches: [main]
