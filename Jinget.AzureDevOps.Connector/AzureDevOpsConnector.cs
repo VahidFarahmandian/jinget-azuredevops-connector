@@ -60,7 +60,9 @@ namespace Jinget.AzureDevOps.Connector
             using var response = await client.GetAsync(GetUrl(path, urlParameters, appendApiVersion));
             response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
+#pragma warning disable CS8603 // Possible null reference return.
             return JsonSerializer.Deserialize<T>(responseBody);
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
 
@@ -71,7 +73,9 @@ namespace Jinget.AzureDevOps.Connector
             using var response = await client.PostAsync(GetUrl(path, urlParameters, appendApiVersion), content);
             response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
+#pragma warning disable CS8603 // Possible null reference return.
             return JsonSerializer.Deserialize<TResponseBody>(responseBody);
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         protected async Task<bool> PostAsync<T>(string path, T requestBody, Dictionary<string, string>? urlParameters = null, bool appendApiVersion = true, string contentType = MediaTypeNames.Application.Json)

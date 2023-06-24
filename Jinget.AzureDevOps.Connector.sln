@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jinget.AzureDevOps.Connecto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jinget.AzureDevOps.ConnectorTests", "Jinget.AzureDevOps.ConnectorTests\Jinget.AzureDevOps.ConnectorTests.csproj", "{BE414537-E56D-48E4-8904-446EB2E60ACD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9DB1829A-110F-46CB-9B79-48FA7C9BBA0F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84F5C7FD-2CA7-4751-8D42-AD73E4A45011}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
