@@ -1,5 +1,7 @@
 name:  release-ci
-
+defaults:
+  run: 
+    working-directory: ./Jinget.AzureDevOps.Connector/Jinget.AzureDevOps.RestApi.Connector
 on:
   push:
     tags:
