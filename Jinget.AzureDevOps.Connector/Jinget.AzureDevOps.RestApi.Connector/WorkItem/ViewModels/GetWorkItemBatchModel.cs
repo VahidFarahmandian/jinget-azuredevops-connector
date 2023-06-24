@@ -1,4 +1,4 @@
-﻿namespace Jinget.AzureDevOps.RestApi.Connector.Projects.ViewModels
+﻿namespace Jinget.AzureDevOps.Connector.Projects.ViewModels
 {
 
     public class GetWorkItemBatchModel

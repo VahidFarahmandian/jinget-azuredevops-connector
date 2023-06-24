@@ -1,4 +1,4 @@
-﻿namespace Jinget.AzureDevOps.RestApi.Connector.Teams.ViewModels
+﻿namespace Jinget.AzureDevOps.Connector.Teams.ViewModels
 {
 
     public class TeamListViewModel

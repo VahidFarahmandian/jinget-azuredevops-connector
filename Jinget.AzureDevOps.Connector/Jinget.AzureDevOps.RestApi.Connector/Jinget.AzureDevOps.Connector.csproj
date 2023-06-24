@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -7,7 +7,7 @@
     <Authors>Jinget</Authors>
     <RepositoryUrl>https://github.com/VahidFarahmandian/jinget-azuredevops-connector</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>jinget, azure devops, azure</PackageTags>
+    <PackageTags>jinget, azure devops, azure, restapi</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/VahidFarahmandian/jinget-azuredevops-connector</PackageProjectUrl>

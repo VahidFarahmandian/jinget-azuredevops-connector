@@ -1,8 +1,8 @@
-﻿using Jinget.AzureDevOps.RestApi.Connector.Board.Tests;
-using Jinget.AzureDevOps.RestApi.Connector.Teams;
-using Jinget.AzureDevOps.RestApi.Connector.Teams.ViewModels;
+﻿using Jinget.AzureDevOps.Connector.Board.Tests;
+using Jinget.AzureDevOps.Connector.Teams;
+using Jinget.AzureDevOps.Connector.Teams.ViewModels;
 
-namespace Jinget.AzureDevOps.RestApi.ConnectorTests.TeamsTests
+namespace Jinget.AzureDevOps.ConnectorTests.TeamsTests
 {
     [TestClass()]
     public class GeneralConnectorTests : _BaseTests

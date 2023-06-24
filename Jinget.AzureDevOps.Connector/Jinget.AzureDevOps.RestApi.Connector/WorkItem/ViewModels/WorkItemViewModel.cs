@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace Jinget.AzureDevOps.RestApi.Connector.WorkItem.ViewModels
+namespace Jinget.AzureDevOps.Connector.WorkItem.ViewModels
 {
     public class WorkItemViewModel
     {

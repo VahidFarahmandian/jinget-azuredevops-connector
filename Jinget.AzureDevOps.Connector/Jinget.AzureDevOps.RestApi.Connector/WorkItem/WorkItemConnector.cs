@@ -1,9 +1,9 @@
-﻿using Jinget.AzureDevOps.RestApi.Connector.Projects.ViewModels;
-using Jinget.AzureDevOps.RestApi.Connector.WorkItem.ViewModels;
+﻿using Jinget.AzureDevOps.Connector.Projects.ViewModels;
+using Jinget.AzureDevOps.Connector.WorkItem.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Jinget.AzureDevOps.RestApi.Connector.Projects
+namespace Jinget.AzureDevOps.Connector.Projects
 {
     public class WorkItemConnector : AzureDevOpsConnector
     {

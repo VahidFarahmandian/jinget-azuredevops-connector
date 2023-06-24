@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Jinget.AzureDevOps.RestApi.Connector.WorkItem.ViewModels
+namespace Jinget.AzureDevOps.Connector.WorkItem.ViewModels
 {
     internal class WorkItemWIQLViewModel
     {

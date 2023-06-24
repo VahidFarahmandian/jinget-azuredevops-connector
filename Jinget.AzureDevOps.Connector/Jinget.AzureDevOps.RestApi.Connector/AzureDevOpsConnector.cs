@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Jinget.AzureDevOps.RestApi.Connector
+namespace Jinget.AzureDevOps.Connector
 {
     public abstract class AzureDevOpsConnector
     {

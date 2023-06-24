@@ -1,6 +1,6 @@
-﻿using Jinget.AzureDevOps.RestApi.Connector.Projects;
+﻿using Jinget.AzureDevOps.Connector.Projects;
 
-namespace Jinget.AzureDevOps.RestApi.Connector.Board.Tests
+namespace Jinget.AzureDevOps.Connector.Board.Tests
 {
     public class _BaseTests
     {

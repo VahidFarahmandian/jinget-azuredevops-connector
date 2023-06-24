@@ -17,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Jinget.AzureDevOps.RestApi.Connector\Jinget.AzureDevOps.RestApi.Connector.csproj" />
+    <ProjectReference Include="..\Jinget.AzureDevOps.RestApi.Connector\Jinget.AzureDevOps.Connector.csproj" />
   </ItemGroup>
+
 
 </Project>

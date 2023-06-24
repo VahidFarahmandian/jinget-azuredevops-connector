@@ -1,4 +1,4 @@
-﻿namespace Jinget.AzureDevOps.RestApi.Connector.Processes.ViewModels
+﻿namespace Jinget.AzureDevOps.Connector.Processes.ViewModels
 {
     public class ProcessListViewModel
     {

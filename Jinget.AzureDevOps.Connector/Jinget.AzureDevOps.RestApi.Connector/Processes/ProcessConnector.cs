@@ -1,8 +1,8 @@
-﻿using Jinget.AzureDevOps.RestApi.Connector.Processes.ViewModels;
+﻿using Jinget.AzureDevOps.Connector.Processes.ViewModels;
 using System;
 using System.Threading.Tasks;
 
-namespace Jinget.AzureDevOps.RestApi.Connector.Processes
+namespace Jinget.AzureDevOps.Connector.Processes
 {
     public class ProcessConnector : AzureDevOpsConnector
     {

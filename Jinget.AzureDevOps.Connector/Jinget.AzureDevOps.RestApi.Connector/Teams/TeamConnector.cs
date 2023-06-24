@@ -1,9 +1,9 @@
-﻿using Jinget.AzureDevOps.RestApi.Connector.Teams.ViewModels;
+﻿using Jinget.AzureDevOps.Connector.Teams.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Jinget.AzureDevOps.RestApi.Connector.Teams
+namespace Jinget.AzureDevOps.Connector.Teams
 {
     public class TeamConnector : AzureDevOpsConnector
     {

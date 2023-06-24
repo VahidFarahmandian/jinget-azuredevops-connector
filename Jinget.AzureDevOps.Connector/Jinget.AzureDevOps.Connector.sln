@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33606.364
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jinget.AzureDevOps.RestApi.Connector", "Jinget.AzureDevOps.RestApi.Connector\Jinget.AzureDevOps.RestApi.Connector.csproj", "{47B3EEF8-555C-4D61-B819-35E3A6B1C43E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jinget.AzureDevOps.Connector", "Jinget.AzureDevOps.RestApi.Connector\Jinget.AzureDevOps.Connector.csproj", "{47B3EEF8-555C-4D61-B819-35E3A6B1C43E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jinget.AzureDevOps.RestApi.ConnectorTests", "Jinget.AzureDevOps.RestApi.ConnectorTests\Jinget.AzureDevOps.RestApi.ConnectorTests.csproj", "{BE414537-E56D-48E4-8904-446EB2E60ACD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jinget.AzureDevOps.ConnectorTests", "Jinget.AzureDevOps.RestApi.ConnectorTests\Jinget.AzureDevOps.ConnectorTests.csproj", "{BE414537-E56D-48E4-8904-446EB2E60ACD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9DB1829A-110F-46CB-9B79-48FA7C9BBA0F}"
 	ProjectSection(SolutionItems) = preProject
