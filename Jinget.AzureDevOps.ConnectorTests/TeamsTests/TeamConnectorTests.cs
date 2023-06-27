@@ -12,6 +12,17 @@ namespace Jinget.AzureDevOps.ConnectorTests.TeamsTests
         [TestInitialize]
         public void TestInitialize() => connector = new TeamConnector(pat, organization);
 
+
+        [TestMethod()]
+        public async Task should_get_raw_response()
+        {
+            connector.ResponseReceived += (object? sender, string e) =>
+            {
+                Assert.IsTrue(e != "");
+            };
+            TeamListViewModel result = await connector.GetAllTeamsAsync();
+        }
+
         [TestMethod()]
         public async Task should_get_list_of_all_teams()
         {
