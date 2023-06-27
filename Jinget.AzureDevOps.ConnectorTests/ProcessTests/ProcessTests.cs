@@ -15,7 +15,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
         [TestMethod()]
         public async Task should_get_list_of_processes()
         {
-            ProcessListViewModel result = await connector.List();
+            ProcessListViewModel result = await connector.ListAsync();
 
             Assert.IsTrue(result.count > 0);
         }
@@ -23,7 +23,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
         [TestMethod()]
         public async Task should_get_specific_process_detail()
         {
-            ProcessViewModel result = await connector.Get(Guid.Parse("27450541-8e31-4150-9947-dc59f998fc01"));
+            ProcessViewModel result = await connector.GetAsync(Guid.Parse("27450541-8e31-4150-9947-dc59f998fc01"));
 
             Assert.IsTrue(result.id != "");
         }

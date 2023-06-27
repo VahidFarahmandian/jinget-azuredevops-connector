@@ -31,7 +31,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
                 },
                 description = "My new project description"
             };
-            bool result = await connector.Create(newProject);
+            bool result = await connector.CreateAsync(newProject);
 
             Assert.IsTrue(result);
         }
@@ -40,7 +40,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
         [TestMethod()]
         public async Task should_get_list_of_projects()
         {
-            ProjectsListViewModel result = await connector.List();
+            ProjectsListViewModel result = await connector.ListAsync();
 
             Assert.IsTrue(result.count > 0);
         }
@@ -52,7 +52,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
             {
                 { "$top","2"}
             };
-            ProjectsListViewModel result = await connector.List(urlParameters);
+            ProjectsListViewModel result = await connector.ListAsync(urlParameters);
 
             Assert.IsTrue(result.count == 2);
         }
@@ -60,7 +60,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
         [TestMethod()]
         public async Task should_get_specific_project_details()
         {
-            ProjectViewModel result = await connector.Get("PMOSample");
+            ProjectViewModel result = await connector.GetAsync("PMOSample");
 
             Assert.IsTrue(result.id != "");
         }
@@ -68,7 +68,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
         [TestMethod()]
         public async Task should_get_specific_project_properties()
         {
-            ProjectPropertiesViewModel result = await connector.GetProperties(Guid.Parse("5ec32e71-d47d-4908-8107-069a952c9550"));
+            ProjectPropertiesViewModel result = await connector.GetPropertiesAsync(Guid.Parse("5ec32e71-d47d-4908-8107-069a952c9550"));
 
             Assert.IsTrue(result.count > 0);
         }
@@ -76,7 +76,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
         [TestMethod()]
         public async Task should_delete_project()
         {
-            bool result = await connector.Delete(Guid.Parse("d39dabc2-b7d4-4466-b6d3-dc3074da5f52"));
+            bool result = await connector.DeleteAsync(Guid.Parse("d39dabc2-b7d4-4466-b6d3-dc3074da5f52"));
             Assert.IsTrue(result);
         }
     }

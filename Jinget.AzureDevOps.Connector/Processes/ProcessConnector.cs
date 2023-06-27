@@ -17,11 +17,11 @@ namespace Jinget.AzureDevOps.Connector.Processes
         /// Get all the process templates defined in organization/collection
         /// </summary>
         /// <returns></returns>
-        public async Task<ProcessListViewModel> List() => await GetAsync<ProcessListViewModel>(RootPathSegment);
+        public async Task<ProcessListViewModel> ListAsync() => await GetAsync<ProcessListViewModel>(RootPathSegment);
 
         /// <summary>
         /// Get the detail information about a specific process template
         /// </summary>
-        public async Task<ProcessViewModel> Get(Guid processId) => await GetAsync<ProcessViewModel>($"{RootPathSegment}/{processId}", appendApiVersion: false);
+        public async Task<ProcessViewModel> GetAsync(Guid processId) => await GetAsync<ProcessViewModel>($"{RootPathSegment}/{processId}", appendApiVersion: false);
     }
 }

@@ -17,17 +17,17 @@ namespace Jinget.AzureDevOps.Connector.Teams
         /// <summary>
         /// Get all the teams in an organization/collection
         /// </summary>
-        public async Task<TeamListViewModel> GetAllTeams(Dictionary<string, string>? urlParameters = null) => await GetAsync<TeamListViewModel>("_apis/teams", urlParameters);
+        public async Task<TeamListViewModel> GetAllTeamsAsync(Dictionary<string, string>? urlParameters = null) => await GetAsync<TeamListViewModel>("_apis/teams", urlParameters);
 
         /// <summary>
         /// Get all the teams in a specific project inside an organization/collection
         /// </summary>
-        public async Task<TeamListViewModel> GetTeams(Guid projectId, Dictionary<string, string>? urlParameters = null) => await GetAsync<TeamListViewModel>($"_apis/projects/{projectId}/teams", urlParameters);
+        public async Task<TeamListViewModel> GetTeamsAsync(Guid projectId, Dictionary<string, string>? urlParameters = null) => await GetAsync<TeamListViewModel>($"_apis/projects/{projectId}/teams", urlParameters);
 
         /// <summary>
         /// Get the detail information about a specific team inside a specific project
         /// </summary>
-        public async Task<TeamViewModel> Get(Guid projectId, string teamId, Dictionary<string, string>? urlParameters = null) => await GetAsync<TeamViewModel>($"_apis/projects/{projectId}/teams/{teamId}", urlParameters);
+        public async Task<TeamViewModel> GetAsync(Guid projectId, string teamId, Dictionary<string, string>? urlParameters = null) => await GetAsync<TeamViewModel>($"_apis/projects/{projectId}/teams/{teamId}", urlParameters);
 
     }
 }

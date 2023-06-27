@@ -15,7 +15,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.TeamsTests
         [TestMethod()]
         public async Task should_get_list_of_all_teams()
         {
-            TeamListViewModel result = await connector.GetAllTeams();
+            TeamListViewModel result = await connector.GetAllTeamsAsync();
 
             Assert.IsTrue(result.count > 0);
         }
@@ -23,7 +23,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.TeamsTests
         [TestMethod()]
         public async Task should_get_list_of_teams_in_specific_project()
         {
-            TeamListViewModel result = await connector.GetTeams(Guid.Parse("5ec32e71-d47d-4908-8107-069a952c9550"));
+            TeamListViewModel result = await connector.GetTeamsAsync(Guid.Parse("5ec32e71-d47d-4908-8107-069a952c9550"));
 
             Assert.IsTrue(result.count > 0);
         }
@@ -31,7 +31,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.TeamsTests
         [TestMethod()]
         public async Task should_get_specific_project_team()
         {
-            TeamViewModel result = await connector.Get(Guid.Parse("5ec32e71-d47d-4908-8107-069a952c9550"), "PMOSample Team");
+            TeamViewModel result = await connector.GetAsync(Guid.Parse("5ec32e71-d47d-4908-8107-069a952c9550"), "PMOSample Team");
 
             Assert.IsTrue(result.id != "");
         }
