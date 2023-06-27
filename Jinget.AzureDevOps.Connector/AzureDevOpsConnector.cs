@@ -19,9 +19,9 @@ namespace Jinget.AzureDevOps.Connector
         /// </summary>
         protected string RootPathSegment;
 
-        public AzureDevOpsConnector(string pat) : this(pat, "") { }
-        public AzureDevOpsConnector(string pat, string rootPathSegment) : this(pat, Constants.DefaultBaseUrl, rootPathSegment) { }
-        public AzureDevOpsConnector(string pat, string url, string rootPathSegment) : this(pat, url, Constants.DefaultApiVersion, rootPathSegment) { }
+        //public AzureDevOpsConnector(string pat) : this(pat, "") { }
+        //public AzureDevOpsConnector(string pat, string rootPathSegment) : this(pat, Constants.DefaultBaseUrl, rootPathSegment) { }
+        //public AzureDevOpsConnector(string pat, string url, string rootPathSegment) : this(pat, url, Constants.DefaultRestApiVersion, rootPathSegment) { }
         public AzureDevOpsConnector(string pat, string url, string apiVersion, string rootPathSegment)
         {
             client = new HttpClient

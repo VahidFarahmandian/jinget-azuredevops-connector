@@ -6,10 +6,10 @@ namespace Jinget.AzureDevOps.Connector.Processes
 {
     public class ProcessConnector : AzureDevOpsConnector
     {
-        public ProcessConnector(string pat, string organization) : base(pat, $"{Constants.DefaultBaseUrl}/{organization}", "_apis/process/processes")
+        public ProcessConnector(string pat, string organization, string apiVersion = Constants.DefaultRestApiVersion) : base(pat, $"{Constants.DefaultRestApiBaseUrl}/{organization}", apiVersion, "_apis/process/processes")
         {
         }
-        public ProcessConnector(string pat, string url, string organization) : base(pat, $"{url}/{organization}", "_apis/process/processes")
+        public ProcessConnector(string pat, string url, string organization, string apiVersion = Constants.DefaultRestApiVersion) : base(pat, $"{url}/{organization}", apiVersion, "_apis/process/processes")
         {
         }
 

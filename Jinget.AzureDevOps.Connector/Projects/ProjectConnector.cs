@@ -7,10 +7,10 @@ namespace Jinget.AzureDevOps.Connector.Projects
 {
     public class ProjectConnector : AzureDevOpsConnector
     {
-        public ProjectConnector(string pat, string organization) : base(pat, $"{Constants.DefaultBaseUrl}/{organization}", "_apis/projects")
+        public ProjectConnector(string pat, string organization, string apiVersion = Constants.DefaultRestApiVersion) : base(pat, $"{Constants.DefaultRestApiBaseUrl}/{organization}", apiVersion, "_apis/projects")
         {
         }
-        public ProjectConnector(string pat, string url, string organization) : base(pat, $"{url}/{organization}", "_apis/projects")
+        public ProjectConnector(string pat, string url, string organization, string apiVersion = Constants.DefaultRestApiVersion) : base(pat, $"{url}/{organization}", apiVersion, "_apis/projects")
         {
         }
 

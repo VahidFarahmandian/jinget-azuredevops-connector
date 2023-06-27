@@ -9,15 +9,42 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
     {
         ProjectConnector connector;
 
+        private async Task<ProjectViewModel> InitTestAsync()
+        {
+            string projectName = $"Test{Guid.NewGuid()}";
+            NewProjectModel newProject = new()
+            {
+                name = projectName,
+                capabilities = new NewProjectModel.Capabilities
+                {
+                    versioncontrol = new NewProjectModel.Versioncontrol
+                    {
+                        sourceControlType = "Git"
+                    },
+                    processTemplate = new NewProjectModel.Processtemplate
+                    {
+                        templateTypeId = "b8a3a935-7e91-48b8-a94c-606d37c3e9f2"
+                    }
+                },
+                description = "My new project description"
+            };
+            await connector.CreateAsync(newProject);
+
+            return await connector.GetAsync(projectName);
+        }
+
+        private async Task<bool> Cleanup(string id) => await connector.DeleteAsync(Guid.Parse(id));
+
         [TestInitialize]
-        public void TestInitialize() => connector = new ProjectConnector(pat, organization);
+        public void TestInitialize() => connector = new ProjectConnector(pat, organization, apiVersion: "7.0");
 
         [TestMethod()]
         public async Task should_create_new_project()
         {
+            string projectName = $"Test{Guid.NewGuid()}";
             NewProjectModel newProject = new()
             {
-                name = "My Test Project",
+                name = projectName,
                 capabilities = new NewProjectModel.Capabilities
                 {
                     versioncontrol = new NewProjectModel.Versioncontrol
@@ -60,23 +87,30 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
         [TestMethod()]
         public async Task should_get_specific_project_details()
         {
-            ProjectViewModel result = await connector.GetAsync("PMOSample");
-
+            var result = await InitTestAsync();
+            await Cleanup(result.id);
             Assert.IsTrue(result.id != "");
         }
 
         [TestMethod()]
         public async Task should_get_specific_project_properties()
         {
-            ProjectPropertiesViewModel result = await connector.GetPropertiesAsync(Guid.Parse("5ec32e71-d47d-4908-8107-069a952c9550"));
+            var previewConnector = new ProjectConnector(pat, organization, apiVersion: "7.0-preview.1");
+            var init = await InitTestAsync();
 
+            ProjectPropertiesViewModel result = await previewConnector.GetPropertiesAsync(Guid.Parse(init.id));
+
+            await Cleanup(init.id);
             Assert.IsTrue(result.count > 0);
         }
 
         [TestMethod()]
         public async Task should_delete_project()
         {
-            bool result = await connector.DeleteAsync(Guid.Parse("d39dabc2-b7d4-4466-b6d3-dc3074da5f52"));
+            var init = await InitTestAsync();
+
+            bool result = await Cleanup(init.id);
+
             Assert.IsTrue(result);
         }
     }

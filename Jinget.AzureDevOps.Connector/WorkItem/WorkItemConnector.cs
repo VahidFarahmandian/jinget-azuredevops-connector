@@ -7,10 +7,10 @@ namespace Jinget.AzureDevOps.Connector.Projects
 {
     public class WorkItemConnector : AzureDevOpsConnector
     {
-        public WorkItemConnector(string pat, string organization, string project, string team = "") : base(pat, $"{Constants.DefaultBaseUrl}/{organization}/{project}/{team}", "7.0", "_apis/wit")
+        public WorkItemConnector(string pat, string organization, string project, string team = "", string apiVersion = "7.0") : base(pat, $"{Constants.DefaultRestApiBaseUrl}/{organization}/{project}/{team}", apiVersion, "_apis/wit")
         {
         }
-        public WorkItemConnector(string pat, string url, string organization, string project, string team = "") : base(pat, $"{url}/{organization}/{project}/{team}", "7.0", "_apis/wit")
+        public WorkItemConnector(string pat, string url, string organization, string project, string team = "", string apiVersion = "7.0") : base(pat, $"{url}/{organization}/{project}/{team}", apiVersion, "_apis/wit")
         {
         }
 
