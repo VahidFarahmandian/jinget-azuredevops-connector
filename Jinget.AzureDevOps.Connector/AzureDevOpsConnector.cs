@@ -12,6 +12,9 @@ namespace Jinget.AzureDevOps.Connector
 {
     public abstract class AzureDevOpsConnector
     {
+        public event EventHandler<string> ResponseReceived;
+        public virtual void OnResponseReceived(string response) => ResponseReceived?.Invoke(this, response);
+
         private readonly HttpClient client;
         private readonly string apiVersion;
         /// <summary>
@@ -19,9 +22,6 @@ namespace Jinget.AzureDevOps.Connector
         /// </summary>
         protected string RootPathSegment;
 
-        //public AzureDevOpsConnector(string pat) : this(pat, "") { }
-        //public AzureDevOpsConnector(string pat, string rootPathSegment) : this(pat, Constants.DefaultBaseUrl, rootPathSegment) { }
-        //public AzureDevOpsConnector(string pat, string url, string rootPathSegment) : this(pat, url, Constants.DefaultRestApiVersion, rootPathSegment) { }
         public AzureDevOpsConnector(string pat, string url, string apiVersion, string rootPathSegment)
         {
             client = new HttpClient
@@ -58,8 +58,12 @@ namespace Jinget.AzureDevOps.Connector
         protected async Task<T> GetAsync<T>(string path, Dictionary<string, string>? urlParameters = null, bool appendApiVersion = true)
         {
             using var response = await client.GetAsync(GetUrl(path, urlParameters, appendApiVersion));
-            response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
+
+            OnResponseReceived(responseBody);
+
+            response.EnsureSuccessStatusCode();
+
 #pragma warning disable CS8603 // Possible null reference return.
             return JsonSerializer.Deserialize<T>(responseBody);
 #pragma warning restore CS8603 // Possible null reference return.
@@ -71,8 +75,12 @@ namespace Jinget.AzureDevOps.Connector
             using StringContent content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, contentType);
 
             using var response = await client.PostAsync(GetUrl(path, urlParameters, appendApiVersion), content);
-            response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
+
+            OnResponseReceived(responseBody);
+
+            response.EnsureSuccessStatusCode();
+
 #pragma warning disable CS8603 // Possible null reference return.
             return JsonSerializer.Deserialize<TResponseBody>(responseBody);
 #pragma warning restore CS8603 // Possible null reference return.
@@ -83,12 +91,20 @@ namespace Jinget.AzureDevOps.Connector
             using StringContent content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, contentType);
 
             using var response = await client.PostAsync(GetUrl(path, urlParameters, appendApiVersion), content);
+            
+            var responseBody = await response.Content.ReadAsStringAsync();
+            OnResponseReceived(responseBody);
+
             return response.IsSuccessStatusCode;
         }
 
         protected async Task<bool> DeleteAsync(string path, Dictionary<string, string>? urlParameters = null, bool appendApiVersion = true)
         {
             using var response = await client.DeleteAsync(GetUrl(path, urlParameters, appendApiVersion));
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            OnResponseReceived(responseBody);
+
             return response.IsSuccessStatusCode;
         }
     }
