@@ -5,7 +5,7 @@ using Jinget.AzureDevOps.Connector.Teams.ViewModels;
 namespace Jinget.AzureDevOps.ConnectorTests.TeamsTests
 {
     [TestClass()]
-    public class GeneralConnectorTests : _BaseTests
+    public class TeamConnectorTests : _BaseTests
     {
         TeamConnector connector;
 

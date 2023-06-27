@@ -9,7 +9,7 @@ namespace Jinget.AzureDevOps.Connector.Projects
         /// <summary>
         /// This constructor is used for cross project queries
         /// </summary>
-        public ODataConnector(string pat, string url, string organization, string apiVersion = "v4.0-preview") : base(pat, $"{url}/{organization}", $"_odata/{apiVersion}")
+        public ODataConnector(string pat, string url, string organization, string oDataApiVersion = Constants.DefaultODataApiVersion) : base(pat, $"{url}/{organization}", "", $"_odata/{oDataApiVersion}")
         {
         }
 
@@ -19,8 +19,8 @@ namespace Jinget.AzureDevOps.Connector.Projects
         /// <param name="pat">Personal access token obtained from Azure DevOps</param>
         /// <param name="url">Base url of Azure DevOps. For Azure DevOps Service this usually is something like https://dev.azure.com</param>
         /// <param name="organization">name of your organization or collection</param>
-        /// <param name="apiVersion">this is OData specific api version and is different from Azure DevOps RestApi version</param>
-        public ODataConnector(string pat, string url, string organization, string project, string apiVersion = "v4.0-preview") : base(pat, $"{url}/{organization}/{project}", $"_odata/{apiVersion}")
+        /// <param name="oDataApiVersion">this is OData specific api version and is different from Azure DevOps RestApi version</param>
+        public ODataConnector(string pat, string url, string organization, string project, string oDataApiVersion = Constants.DefaultODataApiVersion) : base(pat, $"{url}/{organization}/{project}", "", $"_odata/{oDataApiVersion}")
         {
         }
 
@@ -30,7 +30,7 @@ namespace Jinget.AzureDevOps.Connector.Projects
         /// <param name="scopeName">Can be anything like WorkItems, Projects, Areas etc</param>
         /// <param name="queries">Usually contains $select, $filter, $orderby etc</param>
         public async Task<ODataResultViewModel> QueryAsync(string scopeName, Dictionary<string, string>? queries = null) => await GetAsync<ODataResultViewModel>($"{RootPathSegment}/{scopeName}", queries, appendApiVersion: false);
-        
+
         public async Task<T> QueryAsync<T>(string scopeName, Dictionary<string, string>? queries = null) => await GetAsync<T>($"{RootPathSegment}/{scopeName}", queries, appendApiVersion: false);
     }
 }

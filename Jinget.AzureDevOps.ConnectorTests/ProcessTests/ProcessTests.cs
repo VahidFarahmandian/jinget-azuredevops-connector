@@ -10,7 +10,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
         ProcessConnector connector;
 
         [TestInitialize]
-        public void TestInitialize() => connector = new ProcessConnector(pat, organization);
+        public void TestInitialize() => connector = new ProcessConnector(pat, organization, apiVersion: "7.0");
 
         [TestMethod()]
         public async Task should_get_list_of_processes()
