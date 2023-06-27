@@ -27,7 +27,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
                 },
                 ids = new string[] { "96", "97", "98" }
             };
-            WorkItemBatchViewModel result = await connector.ListBatch<WorkItemBatchViewModel>(request);
+            WorkItemBatchViewModel result = await connector.ListBatchAsync<WorkItemBatchViewModel>(request);
 
             Assert.IsTrue(result.count > 0);
         }
@@ -36,7 +36,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
         public async Task should_get_list_of_workitems_using_wiql()
         {
             string query = "SELECT System.Id, System.Title, System.WorkItemType, Microsoft.VSTS.Scheduling.RemainingWork FROM WorkItems";
-            var result = await connector.ListWIQL<WorkItemBatchViewModel>(query);
+            var result = await connector.ListWIQLAsync<WorkItemBatchViewModel>(query);
 
             Assert.IsTrue(result.Count > 0);
         }
@@ -72,7 +72,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
                     value="PMOSample"
                 }
             };
-            var result = await connector.Create("$Task", properties);
+            var result = await connector.CreateAsync("$Task", properties);
 
             Assert.IsTrue(result.id > 0);
         }

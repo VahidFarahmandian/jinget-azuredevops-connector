@@ -17,26 +17,26 @@ namespace Jinget.AzureDevOps.Connector.Projects
         /// <summary>
         /// Get all the projects in an organization/collection
         /// </summary>
-        public async Task<ProjectsListViewModel> List(Dictionary<string, string>? urlParameters = null) => await GetAsync<ProjectsListViewModel>(RootPathSegment, urlParameters);
+        public async Task<ProjectsListViewModel> ListAsync(Dictionary<string, string>? urlParameters = null) => await GetAsync<ProjectsListViewModel>(RootPathSegment, urlParameters);
 
         /// <summary>
         /// Get the detail information about a specific project
         /// </summary>
-        public async Task<ProjectViewModel> Get(string projectName, Dictionary<string, string>? urlParameters = null) => await GetAsync<ProjectViewModel>($"{RootPathSegment}/{projectName}", urlParameters);
+        public async Task<ProjectViewModel> GetAsync(string projectName, Dictionary<string, string>? urlParameters = null) => await GetAsync<ProjectViewModel>($"{RootPathSegment}/{projectName}", urlParameters);
 
         /// <summary>
         /// Get all the properties of a specific project
         /// </summary>
-        public async Task<ProjectPropertiesViewModel> GetProperties(Guid projectId, Dictionary<string, string>? urlParameters = null) => await GetAsync<ProjectPropertiesViewModel>($"{RootPathSegment}/{projectId}/properties", urlParameters);
+        public async Task<ProjectPropertiesViewModel> GetPropertiesAsync(Guid projectId, Dictionary<string, string>? urlParameters = null) => await GetAsync<ProjectPropertiesViewModel>($"{RootPathSegment}/{projectId}/properties", urlParameters);
 
         /// <summary>
         /// Create a new project in Azure DevOps organization/collection
         /// </summary>
-        public async Task<bool> Create(NewProjectModel newProject, Dictionary<string, string>? urlParameters = null) => await PostAsync($"{RootPathSegment}", newProject, urlParameters);
+        public async Task<bool> CreateAsync(NewProjectModel newProject, Dictionary<string, string>? urlParameters = null) => await PostAsync($"{RootPathSegment}", newProject, urlParameters);
 
         /// <summary>
         /// Delete a project in organization/collection
         /// </summary>
-        public async Task<bool> Delete(Guid projectId, Dictionary<string, string>? urlParameters = null) => await DeleteAsync($"{RootPathSegment}/{projectId}", urlParameters);
+        public async Task<bool> DeleteAsync(Guid projectId, Dictionary<string, string>? urlParameters = null) => await DeleteAsync($"{RootPathSegment}/{projectId}", urlParameters);
     }
 }
