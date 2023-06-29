@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
     <Title>Jinget Azure DevOps Connector</Title>
-    <Authors>Jinget</Authors>
+    <Authors>Vahid Farahmandian</Authors>
     <RepositoryUrl>https://github.com/VahidFarahmandian/jinget-azuredevops-connector</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>jinget, azure devops, azure, restapi</PackageTags>
@@ -14,6 +14,8 @@
     <Description>Using this package, you can easily connect to Azure DevOps and integrate it with your software applications</Description>
     <SignAssembly>False</SignAssembly>
     <DelaySign>False</DelaySign>
+    <Company>Jinget</Company>
+    <Product>Jinget</Product>
   </PropertyGroup>
 
   <ItemGroup>
