@@ -5,14 +5,8 @@ defaults:
 on:
   push:
     branches: [main]
-    paths: 
-      - '!**/*.md'
-      - '!.github/*'
   pull_request:
     branches: [main]
-    paths-ignore: 
-      - '**/*.md'
-      - '.github/*'
   
 jobs:
   build:
