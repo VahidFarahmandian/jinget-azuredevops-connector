@@ -10,7 +10,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.TeamsTests
         TeamConnector connector;
 
         [TestInitialize]
-        public void TestInitialize() => connector = new TeamConnector(pat, organization);
+        public void TestInitialize() => connector = new TeamConnector(pat, organization,);
 
 
         [TestMethod()]

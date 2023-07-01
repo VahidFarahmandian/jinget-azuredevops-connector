@@ -21,7 +21,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
                 {"$select","WorkItemId,Title,AssignedTo,State" }
             };
 
-            var result = await connector.QueryAsync("WorkItems", queries);
+            Connector.Projects.ViewModels.ODataResultViewModel result = await connector.QueryAsync("WorkItems", queries);
             Assert.IsTrue(result.odatacontext != null);
         }
 
@@ -34,7 +34,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
                 {"$select","WorkItemId,Title,AssignedTo,State" }
             };
 
-            var result = await connector.QueryAsync<MyCustomType>("WorkItems", queries);
+            MyCustomType result = await connector.QueryAsync<MyCustomType>("WorkItems", queries);
             Assert.IsTrue(result.odatacontext != null);
             Assert.IsTrue(result.value[0].Title != "");
         }

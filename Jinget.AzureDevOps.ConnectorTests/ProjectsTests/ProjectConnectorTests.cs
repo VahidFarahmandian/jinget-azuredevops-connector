@@ -95,10 +95,10 @@ namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
         [TestMethod()]
         public async Task should_get_specific_project_properties()
         {
-            var previewConnector = new ProjectConnector(pat, organization, apiVersion: "7.0-preview.1");
+            var projectConnector = new ProjectConnector(pat, organization, apiVersion: "7.0-preview.1");
             var init = await InitTestAsync();
 
-            ProjectPropertiesViewModel result = await previewConnector.GetPropertiesAsync(Guid.Parse(init.id));
+            ProjectPropertiesViewModel result = await projectConnector.GetPropertiesAsync(Guid.Parse(init.id));
 
             await Cleanup(init.id);
             Assert.IsTrue(result.count > 0);
