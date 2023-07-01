@@ -2,13 +2,14 @@
 By using Jinget Azure DevOps Connector, the communication between your software application and Azure DevOps is facilitated and you can easily connect to Azure DevOps through this package.
 
 
-### How to Use:
+## How to Use:
 
 Download the package from NuGet using Package Manager:
 `Install-Package Jinget.AzureDevOps.Connector`
 You can also use other methods supported by NuGet. Check [Here](https://www.nuget.org/packages/Jinget.AzureDevOps.Connector "Here") for more information.
 
-####Consuming Process APIs
+## Consuming Process APIs
+
 **Create an object from `ProcessConnector` class:**
 Note that if `url` is not specified then `https://dev.azure.com` will be used by default.
 ```csharp
@@ -29,7 +30,7 @@ varr result = await connector.GetAsync(Guid.Parse("<process id>"));
 
 ------------
 
-####Consuming Project APIs
+## Consuming Project APIs
 **Create object from `ProjectConnector` class:**
 Note that if `url` is not specified then `https://dev.azure.com` will be used by default.
 ```csharp
@@ -84,7 +85,7 @@ await connector.DeleteAsync(Guid.Parse(<project id>))
 
 ------------
 
-####Consuming Team APIs
+## Consuming Team APIs
 **Create object from `TeamConnector` class:**
 Note that if `apiVersion` is not specified while creating the connector, by default version `7.0-preview.3` will be selected. If `url` is not specified then `https://dev.azure.com` will be used by default.
 ```csharp
@@ -107,7 +108,7 @@ await connector.GetAsync(Guid.Parse("<project id>"), "<team name>");
 
 ------------
 
-####Consuming WorkItem APIs
+## Consuming WorkItem APIs
 **Create object from `WorkItemConnector` class:**
 Note that if `apiVersion` is not specified while creating the connector, by default version `7.0` will be selected. If `url` is not specified then `https://dev.azure.com` will be used by default.
 ```csharp
@@ -170,7 +171,7 @@ var result = await connector.CreateAsync("$<work item type>", properties);
 
 ------------
 
-####Working with OData
+## Working with OData
 **Create object from `ODataConnector` class:**
 ```csharp
 new ODataConnector(pat, "https://analytics.dev.azure.com", organization, project: "<project name>")
@@ -211,13 +212,13 @@ var result = await otherConnector.QueryAsync("WorkItems", queries);
 For cross-project queries, In line 1, while creating an object of `ODataConnector` type project name should **not** specified. Also in line number 4, in `$filter` the desired projects are specified.
 
 ------------
-# How to install
+## How to install
 In order to install Jinget Azure DevOps Connector please refer to [nuget.org](https://www.nuget.org/packages/Jinget.AzureDevOps.Connector "nuget.org")
 
-# Further Information
+## Further Information
 Sample codes are available via Unit Test projects which are provided beside the main source codes.
 
-# Contact Me
+## Contact Me
 👨‍💻 Twitter: https://twitter.com/_jinget
 
 📧 Email: farahmandian2011@gmail.com
