@@ -16,7 +16,7 @@ namespace Jinget.AzureDevOps.ConnectorTests.TeamsTests
         [TestMethod()]
         public async Task should_get_raw_response()
         {
-            connector.ResponseReceived += (object? sender, string e) =>
+            connector.Events.ResponseReceived += (object? sender, string e) =>
             {
                 Assert.IsTrue(e != "");
             };

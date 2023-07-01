@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Jinget.Handlers.ExternalServiceHandlers.ServiceHandler;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
@@ -10,40 +10,34 @@ using System.Web;
 
 namespace Jinget.AzureDevOps.Connector
 {
-    public abstract class AzureDevOpsConnector
+    public class AzureDevOpsConnectorEvents
     {
         public event EventHandler<string> ResponseReceived;
         public virtual void OnResponseReceived(string response) => ResponseReceived?.Invoke(this, response);
+    }
 
-        private readonly HttpClient client;
+    public abstract class AzureDevOpsConnector : ServiceHandler<AzureDevOpsConnectorEvents>
+    {
+        private readonly string pat;
+        private readonly string baseUrl;
         private readonly string apiVersion;
+
         /// <summary>
         /// indicates the web api request path first segment. usually starts with '_apis/...'
         /// </summary>
         protected string RootPathSegment;
 
-        public AzureDevOpsConnector(string pat, string url, string apiVersion, string rootPathSegment)
+        public AzureDevOpsConnector(string pat, string baseUrl, string apiVersion, string rootPathSegment) : base(baseUrl)
         {
-            client = new HttpClient
-            {
-                BaseAddress = new Uri($"{url}")
-            };
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            if (!string.IsNullOrWhiteSpace(pat))
-            {
-                string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", "", pat)));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
-            }
-
+            this.pat = pat;
+            this.baseUrl = baseUrl;
             this.apiVersion = apiVersion;
             RootPathSegment = rootPathSegment;
         }
-        private string GetUrl(string path, Dictionary<string, string>? urlParameters = null, bool appendApiVersion = true)
+        private (string FullUrl, string Path) GetUrl(string path, Dictionary<string, string>? urlParameters = null, bool appendApiVersion = true)
         {
             urlParameters ??= new Dictionary<string, string>();
-            UriBuilder uri = new UriBuilder($"{client.BaseAddress}/{path}");
+            UriBuilder uri = new UriBuilder($"{baseUrl}/{path}");
             var queryString = HttpUtility.ParseQueryString(uri.Query);
             foreach (var item in urlParameters)
             {
@@ -52,15 +46,33 @@ namespace Jinget.AzureDevOps.Connector
             if (appendApiVersion)
                 queryString["api-version"] = apiVersion;
             uri.Query = queryString.ToString();
-            return uri.ToString();
+            return (uri.Uri.ToString(), uri.Uri.AbsoluteUri.Replace(baseUrl, "").TrimStart('/'));
+        }
+        private Dictionary<string, string> GetDefaultHeaders(Dictionary<string, string>? headers = null)
+        {
+            headers ??= new Dictionary<string, string>();
+
+            if (!string.IsNullOrWhiteSpace(pat))
+            {
+                string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", "", pat)));
+                headers.Add("Authorization", $"Basic {credentials}");
+            }
+            return headers;
+        }
+
+        private object NormalizeRequestBody(object requestBody, string contentType)
+        {
+            return contentType == MediaTypeNames.Application.Json ? requestBody : JsonSerializer.Serialize(requestBody);
         }
 
         protected async Task<T> GetAsync<T>(string path, Dictionary<string, string>? urlParameters = null, bool appendApiVersion = true)
         {
-            using var response = await client.GetAsync(GetUrl(path, urlParameters, appendApiVersion));
+            string uriPath = GetUrl(path, urlParameters, appendApiVersion).Path;
+            using var response = await HttpClientFactory.GetAsync(uriPath, GetDefaultHeaders());
+
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            OnResponseReceived(responseBody);
+            Events.OnResponseReceived(responseBody);
 
             response.EnsureSuccessStatusCode();
 
@@ -72,12 +84,17 @@ namespace Jinget.AzureDevOps.Connector
 
         protected async Task<TResponseBody> PostAsync<TRequestBody, TResponseBody>(string path, TRequestBody requestBody, Dictionary<string, string>? urlParameters = null, bool appendApiVersion = true, string contentType = MediaTypeNames.Application.Json)
         {
-            using StringContent content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, contentType);
+            using var response = await HttpClientFactory.PostAsync(
+                GetUrl(path, urlParameters, appendApiVersion).Path,
+                NormalizeRequestBody(requestBody, contentType),
+                headers: GetDefaultHeaders(new Dictionary<string, string>
+                {
+                    {"Content-Type",contentType }
+                }));
 
-            using var response = await client.PostAsync(GetUrl(path, urlParameters, appendApiVersion), content);
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            OnResponseReceived(responseBody);
+            Events.OnResponseReceived(responseBody);
 
             response.EnsureSuccessStatusCode();
 
@@ -88,22 +105,36 @@ namespace Jinget.AzureDevOps.Connector
 
         protected async Task<bool> PostAsync<T>(string path, T requestBody, Dictionary<string, string>? urlParameters = null, bool appendApiVersion = true, string contentType = MediaTypeNames.Application.Json)
         {
-            using StringContent content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, contentType);
+            using var response = await HttpClientFactory.PostAsync(
+                GetUrl(path, urlParameters, appendApiVersion).Path,
+                NormalizeRequestBody(requestBody, contentType),
+                headers: GetDefaultHeaders(new Dictionary<string, string>
+                {
+                    {"Content-Type",contentType }
+                }));
 
-            using var response = await client.PostAsync(GetUrl(path, urlParameters, appendApiVersion), content);
-            
             var responseBody = await response.Content.ReadAsStringAsync();
-            OnResponseReceived(responseBody);
+            Events.OnResponseReceived(responseBody);
 
             return response.IsSuccessStatusCode;
         }
 
         protected async Task<bool> DeleteAsync(string path, Dictionary<string, string>? urlParameters = null, bool appendApiVersion = true)
         {
-            using var response = await client.DeleteAsync(GetUrl(path, urlParameters, appendApiVersion));
+            HttpRequestMessage requestMessage = new HttpRequestMessage
+            {
+                RequestUri = new Uri(GetUrl(path, urlParameters, appendApiVersion).FullUrl),
+                Method = HttpMethod.Delete
+            };
+            foreach (var item in GetDefaultHeaders())
+            {
+                requestMessage.Headers.TryAddWithoutValidation(item.Key, item.Value);
+            }
+
+            using var response = await HttpClientFactory.SendAsync(requestMessage);
 
             var responseBody = await response.Content.ReadAsStringAsync();
-            OnResponseReceived(responseBody);
+            Events.OnResponseReceived(responseBody);
 
             return response.IsSuccessStatusCode;
         }
