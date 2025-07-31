@@ -39,7 +39,7 @@ public class ODataConnector : AzureDevOpsConnector
     /// send a request to odata endpoint.
     /// </summary>
     /// <param name="scopeName">Can be anything like WorkItems, Projects, Areas etc</param>
-    /// <param name="queries">Usually contains $select, $filter, $orderby etc</param>
+    /// <param name="queries">Usually contains $select, $filter, $orderby, $top</param>
     public async Task<ODataResultViewModel?> QueryAsync(string scopeName, Dictionary<string, string>? queries = null)
         => await GetAsync<ODataResultViewModel>($"{RootPathSegment}/{scopeName}", queries, appendApiVersion: false);
 

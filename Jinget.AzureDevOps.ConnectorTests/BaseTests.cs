@@ -7,7 +7,7 @@ public class BaseTests
 {
     protected const string baseUrl = "https://analytics.dev.azure.com";
 
-    protected const string pat = "1ny6fMfxmR086cTpGx774DqNzDkp3ZSKEMH8plit8DrJLdvUztMRJQQJ99BGACAAAAAAAAAAAAAGAZDO3JSJ";
+    protected const string pat = "...";
     protected const string organization = "farahmandian";
 
     protected const string projectName = "MSFarsi";
