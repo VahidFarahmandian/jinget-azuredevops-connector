@@ -1,0 +1,9 @@
+﻿global using Jinget.Handlers.ExternalServiceHandlers.DefaultServiceHandler;
+global using System;
+global using System.Collections.Generic;
+global using System.Net.Http;
+global using System.Net.Mime;
+global using System.Text;
+global using System.Text.Json;
+global using System.Threading.Tasks;
+global using System.Web;

@@ -1,117 +1,110 @@
-﻿using Jinget.AzureDevOps.Connector.Board.Tests;
-using Jinget.AzureDevOps.Connector.Projects;
+﻿using Jinget.AzureDevOps.Connector.Projects;
 using Jinget.AzureDevOps.Connector.Projects.ViewModels;
 
-namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
+namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests;
+
+[TestClass()]
+public class ProjectConnectorTests : BaseTests
 {
-    [TestClass()]
-    public class ProjectConnectorTests : _BaseTests
+    ProjectConnector connector;
+
+    private async Task<ProjectViewModel?> InitTestAsync()
     {
-        ProjectConnector connector;
-
-        private async Task<ProjectViewModel> InitTestAsync()
+        string projectName = $"Test{Guid.NewGuid()}";
+        NewProjectModel newProject = new()
         {
-            string projectName = $"Test{Guid.NewGuid()}";
-            NewProjectModel newProject = new()
+            name = projectName,
+            capabilities = new NewProjectModel.Capabilities
             {
-                name = projectName,
-                capabilities = new NewProjectModel.Capabilities
+                versioncontrol = new NewProjectModel.Versioncontrol
                 {
-                    versioncontrol = new NewProjectModel.Versioncontrol
-                    {
-                        sourceControlType = "Git"
-                    },
-                    processTemplate = new NewProjectModel.Processtemplate
-                    {
-                        templateTypeId = "b8a3a935-7e91-48b8-a94c-606d37c3e9f2"
-                    }
+                    sourceControlType = "Git"
                 },
-                description = "My new project description"
-            };
-            await connector.CreateAsync(newProject);
-
-            return await connector.GetAsync(projectName);
-        }
-
-        private async Task<bool> Cleanup(string id) => await connector.DeleteAsync(Guid.Parse(id));
-
-        [TestInitialize]
-        public void TestInitialize() => connector = new ProjectConnector(pat, organization, apiVersion: "7.0");
-
-        [TestMethod()]
-        public async Task should_create_new_project()
-        {
-            string projectName = $"Test{Guid.NewGuid()}";
-            NewProjectModel newProject = new()
-            {
-                name = projectName,
-                capabilities = new NewProjectModel.Capabilities
+                processTemplate = new NewProjectModel.Processtemplate
                 {
-                    versioncontrol = new NewProjectModel.Versioncontrol
-                    {
-                        sourceControlType = "Git"
-                    },
-                    processTemplate = new NewProjectModel.Processtemplate
-                    {
-                        templateTypeId = "b8a3a935-7e91-48b8-a94c-606d37c3e9f2"
-                    }
-                },
-                description = "My new project description"
-            };
-            bool result = await connector.CreateAsync(newProject);
+                    templateTypeId = basicProcessId
+                }
+            },
+            description = "My new project description"
+        };
+        await connector.CreateAsync(newProject);
+        Thread.Sleep(500);
+        return await connector.GetAsync(projectName);
+    }
 
-            Assert.IsTrue(result);
-        }
+    private async Task<bool> CleanupAsync(string? id)
+        => string.IsNullOrWhiteSpace(id) || await connector.DeleteAsync(Guid.Parse(id));
 
+    [TestInitialize]
+    public void TestInitialize()
+        => connector = new ProjectConnector(ServiceProvider, pat, organization);
 
-        [TestMethod()]
-        public async Task should_get_list_of_projects()
+    [TestMethod()]
+    public async Task should_create_new_project()
+    {
+        string projectName = $"Test{Guid.NewGuid()}";
+        NewProjectModel newProject = new()
         {
-            ProjectsListViewModel result = await connector.ListAsync();
-
-            Assert.IsTrue(result.count > 0);
-        }
-
-        [TestMethod()]
-        public async Task should_get_first_two_projects()
-        {
-            Dictionary<string, string> urlParameters = new()
+            name = projectName,
+            capabilities = new NewProjectModel.Capabilities
             {
-                { "$top","2"}
-            };
-            ProjectsListViewModel result = await connector.ListAsync(urlParameters);
+                versioncontrol = new NewProjectModel.Versioncontrol
+                {
+                    sourceControlType = "Git"
+                },
+                processTemplate = new NewProjectModel.Processtemplate
+                {
+                    templateTypeId = basicProcessId
+                }
+            },
+            description = "My new project description"
+        };
+        bool result = await connector.CreateAsync(newProject);
 
-            Assert.IsTrue(result.count == 2);
-        }
+        Assert.IsTrue(result);
+    }
 
-        [TestMethod()]
-        public async Task should_get_specific_project_details()
+
+    [TestMethod()]
+    public async Task should_get_list_of_projects()
+    {
+        var result = await connector.ListAsync();
+        Assert.IsNotNull(result);
+        Assert.IsGreaterThan(0, result.count);
+    }
+
+    [TestMethod()]
+    public async Task should_get_first_two_projects()
+    {
+        Dictionary<string, string> urlParameters = new()
         {
-            var result = await InitTestAsync();
-            await Cleanup(result.id);
-            Assert.IsTrue(result.id != "");
-        }
+            { "$top","2"}
+        };
+        var result = await connector.ListAsync(urlParameters);
+        Assert.AreEqual(2, result?.count);
+    }
 
-        [TestMethod()]
-        public async Task should_get_specific_project_properties()
-        {
-            var projectConnector = new ProjectConnector(pat, organization, apiVersion: "7.0-preview.1");
-            var init = await InitTestAsync();
+    [TestMethod()]
+    public async Task should_get_specific_project_details()
+    {
+        var result = await connector.GetAsync(projectName);
+        Assert.AreNotEqual("", result?.id);
+    }
 
-            ProjectPropertiesViewModel result = await projectConnector.GetPropertiesAsync(Guid.Parse(init.id));
+    [TestMethod()]
+    public async Task should_get_specific_project_properties()
+    {
+        connector = new ProjectConnector(ServiceProvider, pat, organization, apiVersion: "7.1-preview.1");
+        var result = await connector.GetPropertiesAsync(Guid.Parse(projectId));
+        Assert.IsNotNull(result);
+        Assert.IsGreaterThan(0, result.count);
+    }
 
-            await Cleanup(init.id);
-            Assert.IsTrue(result.count > 0);
-        }
-
-        [TestMethod()]
-        public async Task should_delete_project()
-        {
-            var init = await InitTestAsync();
-
-            bool result = await Cleanup(init.id);
-
-            Assert.IsTrue(result);
-        }
+    [TestMethod()]
+    public async Task should_delete_project()
+    {
+        var init = await InitTestAsync();
+        bool result = await CleanupAsync(init.id);
+        Assert.IsTrue(result);
     }
 }

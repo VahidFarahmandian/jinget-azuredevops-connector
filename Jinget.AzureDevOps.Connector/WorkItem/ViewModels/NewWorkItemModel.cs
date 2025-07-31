@@ -1,10 +1,10 @@
-﻿namespace Jinget.AzureDevOps.Connector.WorkItem.ViewModels
-{
-    public class NewWorkItemModel
-    {
+﻿namespace Jinget.AzureDevOps.Connector.WorkItem.ViewModels;
 
-        public string op { get; } = "add";
-        public string path { get; set; }
-        public string value { get; set; }
-    }
+public class NewWorkItemModel
+{
+
+    public string op { get; } = "add";
+    public string path { get; set; }
+    public string value { get; set; }
+    public string? from { get; set; } = null;
 }

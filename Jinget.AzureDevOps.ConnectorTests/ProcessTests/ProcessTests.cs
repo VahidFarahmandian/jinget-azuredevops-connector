@@ -1,31 +1,28 @@
-﻿using Jinget.AzureDevOps.Connector.Board.Tests;
-using Jinget.AzureDevOps.Connector.Processes;
-using Jinget.AzureDevOps.Connector.Processes.ViewModels;
+﻿using Jinget.AzureDevOps.Connector.Processes;
 
-namespace Jinget.AzureDevOps.ConnectorTests.ProjectsTests
+namespace Jinget.AzureDevOps.ConnectorTests.ProcessTests;
+
+[TestClass()]
+public class ProcessTests : BaseTests
 {
-    [TestClass()]
-    public class ProcessTests : _BaseTests
+    ProcessConnector connector;
+
+    [TestInitialize]
+    public void TestInitialize()
+        => connector = new ProcessConnector(ServiceProvider, pat, organization);
+
+    [TestMethod()]
+    public async Task should_get_list_of_processes()
     {
-        ProcessConnector connector;
+        var result = await connector.ListAsync();
+        Assert.IsNotNull(result);
+        Assert.IsGreaterThan(0, result.count);
+    }
 
-        [TestInitialize]
-        public void TestInitialize() => connector = new ProcessConnector(pat, organization, apiVersion: "7.0");
-
-        [TestMethod()]
-        public async Task should_get_list_of_processes()
-        {
-            ProcessListViewModel result = await connector.ListAsync();
-
-            Assert.IsTrue(result.count > 0);
-        }
-
-        [TestMethod()]
-        public async Task should_get_specific_process_detail()
-        {
-            ProcessViewModel result = await connector.GetAsync(Guid.Parse("27450541-8e31-4150-9947-dc59f998fc01"));
-
-            Assert.IsTrue(result.id != "");
-        }
+    [TestMethod()]
+    public async Task should_get_specific_process_detail()
+    {
+        var result = await connector.GetAsync(Guid.Parse(cmmiProcessId));
+        Assert.AreNotEqual("", result?.id);
     }
 }

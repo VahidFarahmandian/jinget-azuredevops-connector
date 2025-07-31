@@ -1,15 +1,14 @@
-﻿namespace Jinget.AzureDevOps.Connector.Projects.ViewModels
+﻿namespace Jinget.AzureDevOps.Connector.Projects.ViewModels;
+
+
+public class ProjectPropertiesViewModel
 {
+    public int count { get; set; }
+    public Value[] value { get; set; }
 
-    public class ProjectPropertiesViewModel
+    public class Value
     {
-        public int count { get; set; }
-        public Value[] value { get; set; }
-
-        public class Value
-        {
-            public string name { get; set; }
-            public object value { get; set; }
-        }
+        public string name { get; set; }
+        public object value { get; set; }
     }
 }
