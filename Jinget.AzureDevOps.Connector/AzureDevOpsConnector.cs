@@ -56,7 +56,7 @@ public abstract class AzureDevOpsConnector(
         string uriPath = GetUrl(path, urlParameters, appendApiVersion).Path;
 
         var serviceHandler = new JingetServiceHandler<T>(serviceProvider, baseUrl);
-
+        
         return await serviceHandler.GetAsync<T>(uriPath, GetDefaultHeaders());
     }
 
@@ -69,6 +69,7 @@ public abstract class AzureDevOpsConnector(
         where TResponseBody : class, new()
     {
         var serviceHandler = new JingetServiceHandler<TResponseBody>(serviceProvider, baseUrl);
+        
         return await serviceHandler.PostAsync<TResponseBody>(
             GetUrl(path, urlParameters, appendApiVersion).Path,
             NormalizeRequestBody(requestBody, contentType),
